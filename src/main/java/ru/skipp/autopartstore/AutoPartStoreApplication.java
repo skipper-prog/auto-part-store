@@ -1,19 +1,17 @@
 package ru.skipp.autopartstore;
 
 import lombok.AllArgsConstructor;
-import model.Role;
-import model.User;
+import ru.skipp.autopartstore.model.Role;
+import ru.skipp.autopartstore.model.User;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import repository.UserRepository;
+import ru.skipp.autopartstore.repository.UserRepository;
 
 import java.util.Set;
 
-@ComponentScan("ru.skipp.repositories")
 @SpringBootApplication
 @AllArgsConstructor
 public class AutoPartStoreApplication implements ApplicationRunner {

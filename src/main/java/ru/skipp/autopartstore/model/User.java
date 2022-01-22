@@ -1,18 +1,21 @@
-package model;
+package ru.skipp.autopartstore.model;
 
-import org.springframework.data.annotation.Id;
+//import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
+
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(name = "email")
     private String email;
@@ -38,9 +41,11 @@ public class User {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        // this.password = password;
+        this.password = password;
         this.roles = roles;
     }
+
+    public int getId() { return id; }
 
     public Set<Role> getRoles() {
         return roles;
@@ -72,6 +77,8 @@ public class User {
                 ", roles=" + roles +
                 '}';
     }
+
+    protected void setId(int id) { this.id = id; }
 
     public void setEmail(String email) {
         this.email = email;
