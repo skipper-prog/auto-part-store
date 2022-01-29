@@ -1,29 +1,19 @@
 package ru.skipp.autopartstore.model;
 
-//import org.springframework.data.annotation.Id;
-import javax.persistence.Id;
-
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User extends BaseEntity {
 
-    @Id
-    @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "FIRSTNAME")
+    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name = "LASTNAME")
+    @Column(name = "lastName")
     private String lastName;
 
     @Column(name = "password")
@@ -44,8 +34,6 @@ public class User implements Serializable {
         this.password = password;
         this.roles = roles;
     }
-
-    public int getId() { return id; }
 
     public Set<Role> getRoles() {
         return roles;
@@ -70,10 +58,11 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "email='" + email + '\'' +
+                super.toString() + '\'' +
+                ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", password='" + password + '\'' +
+               // ", password='" + password + '\'' +
                 ", roles=" + roles +
                 '}';
     }
@@ -100,17 +89,17 @@ public class User implements Serializable {
         this.roles = roles;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(email, user.email) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(email, firstName, lastName, password, roles);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        User user = (User) o;
+//        return Objects.equals(email, user.email) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(email, firstName, lastName, password, roles);
+//    }
 }
 
