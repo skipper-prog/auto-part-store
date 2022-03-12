@@ -1,22 +1,32 @@
 package ru.skipp.autopartstore.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class User extends BaseEntity implements Serializable {
 
     @Column(name = "email", unique = true)
+    @Email
+    @NotEmpty
+    @Size(max = 128)
     private String email;
 
     @Column(name = "firstName")
+    @Size(max = 128)
     private String firstName;
 
     @Column(name = "lastName")
+    @Size(max = 128)
     private String lastName;
 
     @Column(name = "password")
+    @Size(max = 256)
     private String password;
 
     @Enumerated(EnumType.STRING)

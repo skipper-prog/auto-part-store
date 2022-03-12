@@ -1,5 +1,6 @@
 package ru.skipp.autopartstore.model;
 
+import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.data.domain.Persistable;
 import org.springframework.util.Assert;
 
@@ -36,6 +37,7 @@ public abstract class BaseEntity implements Persistable<Integer> {
         this.id = id;
     }
 
+    @JsonIgnore
     @Override
     public boolean isNew() {
         return id == null;

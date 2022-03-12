@@ -19,4 +19,18 @@ spring:
     username: postgres
     password: masterkey
     initialization-mode: always
+  data.rest:
+    basePath: /api
+    return-body-on-create: true
+#  security:
+#    user:
+#      name: user
+#      password: password
+#      roles: USER
+logging:
+  level:
+    root: WARN
+    ru.javaops.bootjava: DEBUG
+#    org.springframework.security.web.FilterChainProxy: DEBUG
+
 

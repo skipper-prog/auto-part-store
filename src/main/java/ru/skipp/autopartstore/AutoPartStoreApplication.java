@@ -18,8 +18,9 @@ public class AutoPartStoreApplication implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) {
-		//System.out.println(userRepository.findByLastNameContainingIgnoreCase("last"));
-		System.out.println(userRepository.findEmailIgnoreCase("admin@javaops.ru"));
+		//System.out.println(userRepository.findAll());
+		System.out.println(userRepository.findByLastNameContainingIgnoreCase("last"));
+		System.out.println(userRepository.findByEmailIgnoreCase("admin@javaops.ru"));
 	}
 
 	public AutoPartStoreApplication(UserRepository userRepository){
