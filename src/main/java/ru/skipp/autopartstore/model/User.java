@@ -1,5 +1,10 @@
 package ru.skipp.autopartstore.model;
 
+import org.springframework.util.StringUtils;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import ru.skipp.autopartstore.utils.JsonDeserializers;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -27,6 +32,8 @@ public class User extends BaseEntity implements Serializable {
 
     @Column(name = "password")
     @Size(max = 256)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonDeserialize(using = JsonDeserializers.PasswordDeserializer.class)
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -80,7 +87,7 @@ public class User extends BaseEntity implements Serializable {
     protected void setId(int id) { this.id = id; }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = StringUtils.hasText(email) ? email.toLowerCase() : null;
     }
 
     public void setFirstName(String firstName) {
@@ -99,17 +106,5 @@ public class User extends BaseEntity implements Serializable {
         this.roles = roles;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        User user = (User) o;
-//        return Objects.equals(email, user.email) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(email, firstName, lastName, password, roles);
-//    }
 }
 

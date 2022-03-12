@@ -30,7 +30,7 @@ spring:
 logging:
   level:
     root: WARN
-    ru.javaops.bootjava: DEBUG
+    ru.skipp.autopartstore: DEBUG
 #    org.springframework.security.web.FilterChainProxy: DEBUG
 
 

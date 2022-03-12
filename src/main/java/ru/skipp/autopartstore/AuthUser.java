@@ -1,10 +1,7 @@
 package ru.skipp.autopartstore;
 
-import org.springframework.security.core.GrantedAuthority;
 import ru.skipp.autopartstore.model.User;
-
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
 
 public class AuthUser extends org.springframework.security.core.userdetails.User {
 
