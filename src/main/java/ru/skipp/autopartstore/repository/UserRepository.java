@@ -19,11 +19,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @RestResource(rel = "by-lastname", path = "by-lastname")
     List<User> findByLastNameContainingIgnoreCase(String lastName);
 
-//    @Override
-//    @RestResource (exported = false)
-//    void delete(User entity);
-//
-//    @Override
-//    @RestResource (exported = false)
-//    void deleteById(Integer integer);
+    @Override
+    @RestResource (exported = false)
+    void delete(User user);
+
+    @Override
+    @RestResource (exported = false)
+    void deleteById(Integer integer);
 }
