@@ -1,5 +1,7 @@
 package ru.skipp.autopartstore.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -7,14 +9,25 @@ import ru.skipp.autopartstore.utils.JsonDeserializers;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity implements Serializable {
+public class User extends BaseEntity implements UserDetails {
+
+    @NotBlank(message = "Username cannot be empty")
+    private String username;
+
+    private boolean active;
+
+    public boolean isActive() {
+        return active;
+    }
 
     @Column(name = "email", unique = true)
     @Email
@@ -52,12 +65,18 @@ public class User extends BaseEntity implements Serializable {
         this.roles = roles;
     }
 
+    public boolean isAdmin() {
+        return roles.contains(Role.ADMIN);
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmail() { return email; }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -68,9 +87,27 @@ public class User extends BaseEntity implements Serializable {
         return lastName;
     }
 
-    public String getPassword() {
-        return password;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
     }
+
+    public String getPassword() { return password; }
+
+    @Override
+    public String getUsername() { return username; }
+
+    @Override
+    public boolean isAccountNonExpired() { return true; }
+
+    @Override
+    public boolean isAccountNonLocked() { return true; }
+
+    @Override
+    public boolean isCredentialsNonExpired() { return true; }
+
+    @Override
+    public boolean isEnabled() { return isActive(); }
 
     @Override
     public String toString() {
@@ -106,5 +143,6 @@ public class User extends BaseEntity implements Serializable {
         this.roles = roles;
     }
 
+    public void setActive(boolean active) { this.active = active; }
 }
 

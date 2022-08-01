@@ -22,15 +22,21 @@ spring:
   data.rest:
     basePath: /api
     return-body-on-create: true
+  thymeleaf:
+    check-template: true
+    check-template-location: true
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
 #  security:
 #    user:
 #      name: user
 #      password: password
 #      roles: USER
-logging:
-  level:
-    root: WARN
-    ru.skipp.autopartstore: DEBUG
+#logging:
+#  level:
+#    root: WARN
+#    ru.skipp.autopartstore: DEBUG
 #    org.springframework.security.web.FilterChainProxy: DEBUG
 
 

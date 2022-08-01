@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="html_head">
+    <meta charset="UTF-8">
+    <title>Auto parts store</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+  <div th:fragment="menu">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+              <a class="navbar-brand" href="/">Auto parts</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="/">Home</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="/client">Client list</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="/car">Car list</a>
+                      </li>
+                      <div th:if="${user ne null and user.isAdmin()}">
+                          <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="/user">User list</a>
+                          </li>
+                      </div>
+                      <div th:if="${user ne null}">
+                          <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="/user/profile">Profile</a>
+                          </li>
+                      </div>
+                  </ul>
+                  <div class="navbar-text me-3" sec:authorize="isAuthenticated()">
+                      <div sec:authentication="name"></div>
+                      <div sec:authentication="principal.authorities"></div>
+                  </div>
+              </div>
+          </div>
+      </nav>
+  </div>
+
+  <form th:fragment="login_form" th:action="@{|${#httpServletRequest.requestURI}|}" method="post">
+      <div class="form-group row">
+          <label class="col-sm-2 col-form-label">User Name:</label>
+          <div class="col-sm-6">
+              <input type="text" name="username" th:value="${user?.username}"
+                     th:class="${usernameError} ? 'form-control is-invalid' : 'form-control'"
+                     placeholder="User name"/>
+              <div th:if="${usernameError != null}" class="invalid-feedback" th:text="${usernameError}"></div>
+          </div>
+      </div>
+      <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Password:</label>
+          <div class="col-sm-6">
+              <input type="password" name="password"
+                     th:class="${passwordError} ? 'form-control is-invalid' : 'form-control'"
+                     placeholder="Password"/>
+              <div th:if="${passwordError != null}" class="invalid-feedback" th:text="${passwordError}"></div>
+          </div>
+      </div>
+      <!--<#if isRegisterForm>-->
+      <!--    <div class="form-group row">-->
+      <!--        <label class="col-sm-2 col-form-label">Password:</label>-->
+      <!--        <div class="col-sm-6">-->
+      <!--            <input type="password" name="password2"-->
+      <!--                   class="form-control ${(password2Error??)?string('is-invalid', '')}"-->
+      <!--                   placeholder="Retype password"/>-->
+      <!--            <#if password2Error??>-->
+      <!--            <div class="invalid-feedback">-->
+      <!--                ${password2Error}-->
+      <!--            </div>-->
+      <!--            </#if>-->
+      <!--        </div>-->
+      <!--    </div>-->
+      <!--    <div class="form-group row">-->
+      <!--        <label class="col-sm-2 col-form-label">Email:</label>-->
+      <!--        <div class="col-sm-6">-->
+      <!--            <input type="email" name="email" value="<#if user??>${user.email}</#if>"-->
+      <!--                   class="form-control ${(emailError??)?string('is-invalid', '')}"-->
+      <!--                   placeholder="some@some.com"/>-->
+      <!--            <#if emailError??>-->
+      <!--            <div class="invalid-feedback">-->
+      <!--                ${emailError}-->
+      <!--            </div>-->
+      <!--            </#if>-->
+      <!--    </div>-->
+      <!--    <div class="col-sm-6">-->
+      <!--        <div class="g-recaptcha" data-sitekey="6LfY1ZUfAAAAAPuRDlsvHfaBkPHouAsZZV4abuyl"></div>-->
+      <!--        <#if captchaError??>-->
+      <!--        <div class="alert alert-danger" role="alert">-->
+      <!--            ${captchaError}-->
+      <!--        </div>-->
+      <!--        </#if>-->
+      <!--    </div>-->
+
+      <!--    </div>-->
+      <!--</#if>-->
+      <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+
+      <div th:if="${isRegisterForm}" class="mb-1">
+          <a href="/registration">Add new user</a>
+      </div>
+
+
+      <button class="btn btn-primary" type="submit" th:text="${isRegisterForm} ? 'Create' : 'Sign In'"></button>
+  </form>
+
+<!--  later add this for authorize-->
+<!--  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
+
+</body>
+</html>
