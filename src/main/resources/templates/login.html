@@ -4,7 +4,19 @@
 <head th:replace="fragments :: html_head"/>
 <body>
     <div th:replace="fragments :: menu" />
-    <div th:replace="fragments :: login_form" />
+    <div class="container mt-5">
+<!--        <div class="error"-->
+<!--             th:if="${param.login_error}"-->
+<!--             th:with="errorMsg=${session["SPRING_SECURITY_LAST_EXCEPTION"].message}">-->
+<!--            Your login attempt was not successful, try again.<br />-->
+<!--            Reason: <span th:text="${errorMsg}">Wrong input!</span>-->
+<!--        </div>-->
+        <div th:if="${param.message != null}" class="alert alert-info" th:utext="${param.message[0]}">message</div>
+
+
+        <div th:if="${param.error != null}" class="alert alert-danger" th:utext="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+        <div th:replace="fragments :: login_form" />
+    </div>
 <!--    for register form-->
 <!--    <div th:replace="fragments :: login_form (isRegisterForm=True)" />-->
 </body>

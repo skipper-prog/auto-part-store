@@ -28,6 +28,10 @@ spring:
     enabled: true
     prefix: classpath:/templates/
     suffix: .html
+  session:
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION
 #  security:
 #    user:
 #      name: user
