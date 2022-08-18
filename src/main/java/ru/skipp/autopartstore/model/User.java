@@ -20,7 +20,8 @@ import java.util.Set;
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
 
-    @NotBlank(message = "Username cannot be empty")
+//    @NotBlank(message = "Username cannot be empty")
+    @NotEmpty
     private String username;
 
     private boolean active;

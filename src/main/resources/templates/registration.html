@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments :: html_head"/>
 <body>
-    <div th:replace="fragments :: menu" />
+<div th:replace="fragments :: menu" />
     <div class="container mt-5">
         <div th:if="${param.error != null}" class="alert alert-danger" th:utext="${session[SPRING_SECURITY_LAST_EXCEPTION].message}">error</div>
-        <div th:replace="fragments :: login_form" />
+        <div th:replace="fragments :: login_form (isRegisterForm=True)" />
     </div>
 </body>
 </html>

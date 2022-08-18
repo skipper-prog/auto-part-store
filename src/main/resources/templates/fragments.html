@@ -37,8 +37,8 @@
                       </li>
                   </ul>
                   <div sec:authorize="isAuthenticated()" class="navbar-text me-3" sec:authentication="name"></div>
-<!--                  <div sec:authentication="principal.authorities"></div>-->
-                  <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
+
+                  <form th:if="@{|${#httpServletRequest.requestURI}| != '/login'}" class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
                       <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Logout</button>
                       <button sec:authorize="isAnonymous()" th:href="@{~/login}" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Login</button>
                   </form>
@@ -67,55 +67,39 @@
               <div th:if="${passwordError != null}" class="invalid-feedback" th:text="${passwordError}"></div>
           </div>
       </div>
-      <!--<#if isRegisterForm>-->
-      <!--    <div class="form-group row">-->
-      <!--        <label class="col-sm-2 col-form-label">Password:</label>-->
-      <!--        <div class="col-sm-6">-->
-      <!--            <input type="password" name="password2"-->
-      <!--                   class="form-control ${(password2Error??)?string('is-invalid', '')}"-->
-      <!--                   placeholder="Retype password"/>-->
-      <!--            <#if password2Error??>-->
-      <!--            <div class="invalid-feedback">-->
-      <!--                ${password2Error}-->
-      <!--            </div>-->
-      <!--            </#if>-->
-      <!--        </div>-->
-      <!--    </div>-->
-      <!--    <div class="form-group row">-->
-      <!--        <label class="col-sm-2 col-form-label">Email:</label>-->
-      <!--        <div class="col-sm-6">-->
-      <!--            <input type="email" name="email" value="<#if user??>${user.email}</#if>"-->
-      <!--                   class="form-control ${(emailError??)?string('is-invalid', '')}"-->
-      <!--                   placeholder="some@some.com"/>-->
-      <!--            <#if emailError??>-->
-      <!--            <div class="invalid-feedback">-->
-      <!--                ${emailError}-->
-      <!--            </div>-->
-      <!--            </#if>-->
-      <!--    </div>-->
-      <!--    <div class="col-sm-6">-->
-      <!--        <div class="g-recaptcha" data-sitekey="6LfY1ZUfAAAAAPuRDlsvHfaBkPHouAsZZV4abuyl"></div>-->
-      <!--        <#if captchaError??>-->
-      <!--        <div class="alert alert-danger" role="alert">-->
-      <!--            ${captchaError}-->
-      <!--        </div>-->
-      <!--        </#if>-->
-      <!--    </div>-->
-
-      <!--    </div>-->
-      <!--</#if>-->
+      <div th:if="${isRegisterForm == True}">
+          <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Password:</label>
+              <div class="col-sm-6">
+                  <input type="password" name="password2"
+                         th:class="${password2Error} ? 'form-control is-invalid' : 'form-control'"
+                         placeholder="Retype password"/>
+                  <div th:if="${password2Error != null}" class="invalid-feedback" th:text="${password2Error}"></div>
+              </div>
+          </div>
+          <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Email:</label>
+              <div class="col-sm-6">
+                  <input type="email" name="email" th:value="${user} ? ${user.email}"
+                         th:class="${emailError} ? 'form-control is-invalid' : 'form-control'"
+                         placeholder="some@some.com"/>
+                  <div th:if="${emailError != null}" class="invalid-feedback" th:text="${emailError}"></div>
+              </div>
+          </div>
+          <div class="col-sm-6">
+              <div class="g-recaptcha" data-sitekey="6LfY1ZUfAAAAAPuRDlsvHfaBkPHouAsZZV4abuyl"></div>
+              <div th:if="${captchaError != null}" class="alert alert-danger" role="alert" th:text="${captchaError}"></div>
+          </div>
+      </div>
       <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-
-      <div th:if="${isRegisterForm}" class="mb-1">
+      <div th:if="${isRegisterForm != True}" class="mb-1">
           <a href="/registration">Add new user</a>
       </div>
-
-
       <button class="btn btn-primary" type="submit" th:text="${isRegisterForm} ? 'Create' : 'Sign In'"></button>
   </form>
 
 <!--  later add this for authorize-->
-<!--  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
-
+<!--  что делает скрипт ниже я хз, вроде не на что не влияет-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
