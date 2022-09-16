@@ -1,6 +1,7 @@
 #  https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 spring:
   jpa:
+    generate-ddl: true
     show-sql: true
     open-in-view: false
     hibernate:
@@ -15,7 +16,7 @@ spring:
         # https://stackoverflow.com/questions/21257819/what-is-the-difference-between-hibernate-jdbc-fetch-size-and-hibernate-jdbc-batc
         jdbc.batch_size: 20
   datasource:
-    url: jdbc:postgresql://localhost:5432/CarParts
+    url: jdbc:postgresql://localhost:5432/AutoParts
     username: postgres
     password: masterkey
     initialization-mode: always
@@ -32,13 +33,14 @@ spring:
     jdbc:
       initialize-schema: always
       table-name: SPRING_SESSION
+  mvc.hiddenmethod.filter.enabled: true
 recaptcha.secret: 6LfY1ZUfAAAAANLPo3aa7LkZz13lAaiytbIi7QSb
 #  security:
 #    user:
 #      name: user
 #      password: password
 #      roles: USER
-#logging:
+logging:
 #  level:
 #    root: WARN
 #    ru.skipp.autopartstore: DEBUG

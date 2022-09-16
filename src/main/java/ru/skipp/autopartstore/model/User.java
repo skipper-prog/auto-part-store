@@ -122,8 +122,6 @@ public class User extends BaseEntity implements UserDetails {
                 '}';
     }
 
-    protected void setId(int id) { this.id = id; }
-
     public void setEmail(String email) {
         this.email = StringUtils.hasText(email) ? email.toLowerCase() : null;
     }

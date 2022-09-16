@@ -11,29 +11,29 @@ import javax.persistence.GenerationType;
 @MappedSuperclass
 //  https://stackoverflow.com/a/6084701/548473
 @Access(AccessType.FIELD)
-public abstract class BaseEntity implements Persistable<Integer> {
+public abstract class BaseEntity implements Persistable<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    protected Long id;
 
     protected BaseEntity(){}
 
-    protected BaseEntity(Integer id) {
+    protected BaseEntity(Long id) {
         this.id = id;
     }
 
-    public int id() {
+    public long id() {
         Assert.notNull(id, "Entity must have id");
         return id;
     }
 
     @Override
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,7 +54,7 @@ public abstract class BaseEntity implements Persistable<Integer> {
 
     @Override
     public int hashCode() {
-        return id == null ? 0 : id;
+        return id == null ? 0 : id.hashCode();
     }
 
     @Override

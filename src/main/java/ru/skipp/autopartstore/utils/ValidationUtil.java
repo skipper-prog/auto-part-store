@@ -12,7 +12,7 @@ public class ValidationUtil {
     }
 
     //  Conservative when you reply, but accept liberally (http://stackoverflow.com/a/32728226/548473)
-    public static void assureIdConsistent(BaseEntity entity, int id) {
+    public static void assureIdConsistent(BaseEntity entity, long id) {
         if (entity.isNew()) {
             entity.setId(id);
         } else if (entity.id() != id) {

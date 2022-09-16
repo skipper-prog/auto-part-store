@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments :: html_head"/>
+<body>
+<div th:replace="fragments :: menu" />
+<div class="container mt-5">
+    <h1>Car list</h1>
+    <table  class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>VIN</th>
+            <th>TITLE</th>
+        </tr>
+        <tr th:each="car : ${cars}">
+            <td th:text="${car.id}">id</td>
+            <td th:text="${car.vin}">vin</td>
+            <td th:text="${car.abstractCar.title}">title</td>
+        </tr>
+    </table>
+
+
+</div>
+</body>
+</html>

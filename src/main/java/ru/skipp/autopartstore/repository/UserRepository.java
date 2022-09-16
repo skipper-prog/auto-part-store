@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByUsername(String username);
 
@@ -27,5 +27,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Override
     @RestResource (exported = false)
-    void deleteById(Integer integer);
+    void deleteById(Long id);
 }
